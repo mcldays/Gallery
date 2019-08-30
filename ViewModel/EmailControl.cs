@@ -254,36 +254,8 @@ namespace Gallery.ViewModel
                            {
                                string Url = Explorer.ImgUrl;
                                string vkId = (string)obj;
-
-
-
                                SendAnimation2 = false;
                                await Task.Delay(100);
-
-
-
-
-
-                               //var services = new ServiceCollection();
-                               //services.AddAudioBypass();
-                               //var api = new VkApi(services);
-                               //for (int i = 0; i < Utilits.ProcessLogin.GetLength(); i++)
-                               //{
-                               //    var number = 0;
-                               //    try
-                               //    {
-                               //        api.Authorize(new ApiAuthParams
-                               //        {
-                               //            Login = Utilits.ProcessLogin.GetLogin(number),
-                               //            Password = Utilits.ProcessLogin.GetPass(number)
-                               //        });
-                               //        break;
-                               //    }
-                               //    catch
-                               //    {
-                               //        number++;
-                               //    }
-                               //}
 
                                var api = Utilits.ApiVk.api;
                                var uploadServer = api.Photo.GetMessagesUploadServer(1); //Получаем ссылку на сервер для загрузок

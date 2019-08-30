@@ -38,11 +38,5 @@ namespace Gallery.Utilits
                 }
             }
         }
-
-        public  VkApi Apireturn()
-        {
-
-            return api;
-        }
     }
 }
