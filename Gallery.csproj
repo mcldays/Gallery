@@ -109,6 +109,7 @@
     <Compile Include="Utilits\FileManager.cs" />
     <Compile Include="Utilits\MailManager.cs" />
     <Compile Include="Utilits\ObjectSerializator.cs" />
+    <Compile Include="Utilits\ProcessLogin.cs" />
     <Compile Include="Utilits\UsbManager.cs" />
     <Compile Include="ViewModel\EmailControl.cs" />
     <Compile Include="ViewModel\ImageWindow.cs" />

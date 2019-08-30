@@ -3,6 +3,7 @@ using Gallery.Utilits;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -188,6 +189,31 @@ namespace Gallery.ViewModel
                 return vkSend ??
                        (vkSend = new Command(async obj =>
                        {
+
+
+                           string[] Accounts = { };
+
+                           using (StreamReader st = new StreamReader("Accounts.txt"))
+                               Accounts = File.ReadAllLines("Accounts.txt");
+
+                           string[] Login = new string[100];
+                           string[] Password = new string[100];
+
+
+                           for (int i = 0; i < Accounts.Length; ++i)
+                           {
+                               string flag = Accounts[i];
+
+                               string[] flagTwo = flag.Split(';');
+                               Login[i] = flagTwo[0].ToString();
+                               Password[i] = flagTwo[1].ToString();
+                           }
+
+
+
+
+
+
                            SendAnimation2 = false;
                            await Task.Delay(100);
                        }));
