@@ -4,11 +4,19 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using VkNet;
+using VkNet.AudioBypassService.Extensions;
+using VkNet.Model;
 
 namespace Gallery.ViewModel
 {
@@ -188,8 +196,88 @@ namespace Gallery.ViewModel
                 return vkSend ??
                        (vkSend = new Command(async obj =>
                        {
-                           SendAnimation2 = false;
-                           await Task.Delay(100);
+                           if (obj != null && obj is string)
+                           {
+                               string Url = Explorer.ImgUrl;
+                               string vkId = (string)obj;
+
+
+
+                               SendAnimation = false;
+                               await Task.Delay(100);
+
+
+                               var services = new ServiceCollection();
+                               services.AddAudioBypass();
+                               var api = new VkApi(services);
+                               api.Authorize(new ApiAuthParams
+                               {
+                                   Login = "lexlex9797@yandex.ru",
+                                   Password = "Gosudarstvo987GrOb987GrOb"
+                               });
+
+
+                               var uploadServer = api.Photo.GetMessagesUploadServer(94531791); //Получаем ссылку на сервер для загрузок
+                               var uploadServerUri = uploadServer.UploadUrl;
+                               var uploader = new WebClient();
+                               var uploadResponseInBytes = uploader.UploadFile(uploadServerUri, Url); // Загружаем фото на сервер
+                               var uploadResponseInString = Encoding.UTF8.GetString(uploadResponseInBytes);
+
+                               var photo = api.Photo.SaveMessagesPhoto(uploadResponseInString);
+
+                               Random random = new Random();
+                               int randomNumber = random.Next(1, 99999999);
+
+                               if (Regex.IsMatch(vkId, @"^\d+$"))
+                               {
+                                   var check = api.Messages.Send(new VkNet.Model.RequestParams.MessagesSendParams
+                                   {
+                                       RandomId = randomNumber, // уникальный
+                                       UserId = Int32.Parse(vkId),
+                                       Attachments = photo
+                                   });
+                               }
+                               else
+                               {
+                                   var check = api.Messages.Send(new VkNet.Model.RequestParams.MessagesSendParams
+                                   {
+                                       RandomId = randomNumber, // уникальный
+                                       Domain = vkId,
+                                       Attachments = photo
+                                   });
+                               }
+
+                               
+
+                               //EmailManager emai = new EmailManager();
+
+                               //if (!emai.IsValidEmail(Email))
+                               //{
+                               //    ColorStatusText = false;
+                               //    SendStatus = "Введен некорректный Email";
+                               //    ResetSendStatus();
+                               //    SendAnimation = true;
+                               //    return;
+                               //}
+                               //string ReturnedMsg = await emai.SendEmail(Email, Url);
+                               //SendAnimation = true;
+
+                               //ColorStatusText = string.IsNullOrEmpty(ReturnedMsg);
+                               //if (ColorStatusText)
+                               //{
+                               //    // Успешно отправил
+                               //    SendStatus = "Сообщение успешно отправлено!";
+                               //    ResetSendStatus();
+                               //    Explorer.AddMailGood(Email);
+                               //}
+                               //else
+                               //{
+                               //    // Ошибка отправки
+                               //    SendStatus = ReturnedMsg; //"Ошибка при отправке сообщения!"
+                               //    ResetSendStatus();
+                               //    Explorer.AddMailBad();
+                               //}
+                           }
                        }));
             }
         }
