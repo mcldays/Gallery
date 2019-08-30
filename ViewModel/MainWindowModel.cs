@@ -41,7 +41,7 @@ namespace Gallery.ViewModel
         public MainWindowModel()
         {
             ImageList = new ObservableCollection<ImageModel>();
-            Backgrounds = Directory.GetFiles(Directory.GetCurrentDirectory() + "//Backgrounds").ToList();
+            //Backgrounds = Directory.GetFiles(Directory.GetCurrentDirectory() + "//Backgrounds").ToList();
             Widthh = SystemParameters.PrimaryScreenWidth;
             Heightt = SystemParameters.PrimaryScreenHeight;
             WidthOfElement = Widthh / 5.05;
