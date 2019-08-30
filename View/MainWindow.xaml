@@ -1,0 +1,139 @@
+﻿<Window x:Class="Gallery.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:viewM="clr-namespace:Gallery.ViewModel"
+        xmlns:databinding="clr-namespace:Gallery.Converts"
+        xmlns:controls1="clr-namespace:Gallery.Controls"
+        xmlns:local="clr-namespace:Gallery"
+        mc:Ignorable="d"
+        Title="MainWindow" 
+        Name="Window"
+        ResizeMode="NoResize"
+        WindowState="Maximized"
+        WindowStyle="None"
+        Height="{Binding Heightt}"
+        Width="{Binding Widthh}" Closing="Window_Closing"
+        >
+    <Window.Resources>
+        <databinding:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></databinding:BooleanToVisibilityConverter>
+    </Window.Resources>
+    <Window.Background>
+        <ImageBrush ImageSource="{Binding FontImage}"/>
+    </Window.Background>
+    <Window.DataContext>
+        <viewM:MainWindowModel x:Name="ContextParametres"/>
+    </Window.DataContext>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded" >
+            <i:InvokeCommandAction Command="{Binding WindowLoaded}" CommandParameter="{Binding ElementName=Window}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <Grid>
+        
+        <Grid>
+            <!--Image Height="56" 
+               VerticalAlignment="Top"
+               HorizontalAlignment="Stretch"
+               Margin="0,26,0,0"
+               Source="../Image/TopLogo.png"/-->
+            <Grid Visibility="{Binding StatusGridVisibly, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock Margin="0,15,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="38" Width="1200" Foreground="LightYellow" Text="{Binding GridStatusText}" TextWrapping="Wrap" FontSize="14">
+                    <TextBlock.Effect>
+                        <DropShadowEffect BlurRadius="5" Opacity="0.9" Direction="634" RenderingBias="Quality" ShadowDepth="0"/>
+                    </TextBlock.Effect>
+                </TextBlock>
+                <ProgressBar Foreground="#f39100" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,56,0,0" Background="White" Height="2" Width="1200" Maximum="{Binding ProgressBarMax, Mode=OneWay}" Value="{Binding ProgressBarValue, Mode=OneWay}"/>
+            </Grid>
+
+
+        </Grid>
+        
+        <ListBox
+            ItemsSource="{Binding ImageList}"
+            Background="{x:Null}"
+            BorderBrush="{x:Null}"
+            Name ="ScrollControl"
+            Margin="43,67,143,56"
+            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+            ScrollViewer.VerticalScrollBarVisibility="Hidden"
+            ScrollViewer.PanningMode="VerticalOnly"
+            HorizontalContentAlignment="Center"
+            >
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <!--UniformGrid Columns="4"/-->
+                    <!--Аналогичный контрол, но с возможностью виртуализации-->
+                    <controls1:UniformGridPanel Orientation="Vertical"
+                                    Columns="4"
+                                    Rows="3"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <!--отключает дефолтную подсветку элемента-->
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <ContentPresenter />
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border CornerRadius="15" Margin="11, 11, 11, 0" Height="{Binding ElementName=ContextParametres, Path=HeightOfElement }"  Width="{Binding ElementName=ContextParametres, Path=WidthOfElement }">
+                        <Border.Style>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="BorderBrush">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="LightGray" Opacity="0.5"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="BorderThickness" Value="2" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                                        <Setter Property="BorderBrush" Value="#f39100" />
+                                        <Setter Property="BorderThickness" Value="4" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <!--Border.Background>
+                            <ImageBrush ImageSource="{Binding ImageName, IsAsync=True}" Stretch="UniformToFill"/>
+                        </-->
+                        <Grid>
+                            <!--MediaElement Name="myMediaElement" Source="C:\Users\ВМ\Pictures\Интерактивная навигация.mp4" Stretch="UniformToFill" MediaOpened="myMediaElement_MediaOpened"/-->
+                            <MediaElement Source="{Binding ImageName}" Stretch="Uniform" LoadedBehavior="Play" 
+                                          MediaOpened="MediaElement_MediaOpened"
+                                          ScrubbingEnabled="True"/>
+                            <Button Opacity="0" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.ShowImage}" CommandParameter="{Binding}" Tag="{Binding ImageName}">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="#F2F2F2" />
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Grid Background="{TemplateBinding Background}">
+                                                        <ContentPresenter />
+                                                    </Grid>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Grid Width="100" Height="100" HorizontalAlignment="Left" VerticalAlignment="Bottom" Background="Transparent"
+                  TouchDown="Button_TouchDown" MouseLeftButtonDown="Button_MouseDown" TouchUp="Button_TouchUp" MouseUp="Button_MouseUp" TouchLeave="Button_TouchLeave" MouseLeave="Button_MouseLeave"></Grid>
+    </Grid>
+    
+</Window>
