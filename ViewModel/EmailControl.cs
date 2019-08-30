@@ -39,6 +39,8 @@ namespace Gallery.ViewModel
 
         private Command controlLoaded;
 
+
+
         
 
         public string EmailText
@@ -56,6 +58,8 @@ namespace Gallery.ViewModel
                 }
             }
         }
+
+
         public string VkText
         {
             get
@@ -206,6 +210,7 @@ namespace Gallery.ViewModel
                         {
                             string Url = Explorer.ImgUrl;
                             string Email = (string)obj;
+                            
 
                             SendAnimation = false;
                             await Task.Delay(100);
@@ -229,6 +234,7 @@ namespace Gallery.ViewModel
                                 SendStatus = "Сообщение успешно отправлено!";
                                 ResetSendStatus();
                                 Explorer.AddMailGood(Email);
+                                EmailText = string.Empty;
                             }
                             else
                             {
@@ -294,6 +300,7 @@ namespace Gallery.ViewModel
                                    ColorStatusText2 = true;
                                    SendStatus2 = "Сообщение успешно отправлено!";
                                    ResetSendStatus();
+                                   VkText = string.Empty;
                                }
                                catch
                                {

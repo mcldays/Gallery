@@ -86,7 +86,7 @@
                         <Button IsEnabled="{Binding SendAnimation}" Command="{Binding EmailSend}" CommandParameter="{Binding ElementName=textBlock, Path=Text}" Style="{StaticResource SendButton}" BorderThickness="0" Content="Отправить" Margin="10,0,-10,0"/>
                     </Grid>
                 </Grid>
-                <TextBlock Grid.Column="0" Padding="0,5,0,5" FontSize="17" VerticalAlignment="Bottom">Отправьте файл Вконтакте:</TextBlock>
+                <TextBlock Grid.Column="0" Padding="0,5,0,5" FontSize="17" VerticalAlignment="Bottom">Отправьте файл Вконтакте (введите ID страницы):</TextBlock>
                 <TextBlock Grid.Column="1" IsEnabled="{Binding ColorStatusText2}"  Text="{Binding SendStatus2}" Padding="20,5,0,5" FontSize="17" TextWrapping="Wrap" TextAlignment="Right" Grid.ColumnSpan="2">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock">

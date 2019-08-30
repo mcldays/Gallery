@@ -47,6 +47,7 @@ namespace Gallery
 
             return result == null ? false : (result == true ? true : false);
         }
+
         ApiVk instance = new ApiVk();
     }
 
