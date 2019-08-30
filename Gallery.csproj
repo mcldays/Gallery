@@ -136,6 +136,7 @@
     <Compile Include="Model\MailModel.cs" />
     <Compile Include="Model\SettingsModel.cs" />
     <Compile Include="Model\USBModel.cs" />
+    <Compile Include="Utilits\ApiVk.cs" />
     <Compile Include="Utilits\CopyFile.cs" />
     <Compile Include="Utilits\EmailManager.cs" />
     <Compile Include="Utilits\FileManager.cs" />
@@ -261,6 +262,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Image\nebo.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\fon1.jpg" />
+    <Resource Include="Image\fon2.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

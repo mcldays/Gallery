@@ -25,7 +25,10 @@ namespace Gallery.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private string emailText = string.Empty;
+        private string vkText = string.Empty;
+
         private string sendStatus = string.Empty;
+        private string sendStatus2 = string.Empty;
         private bool sendAnimation = true;
         private bool sendAnimation2 = true;
 
@@ -35,6 +38,8 @@ namespace Gallery.ViewModel
         private Command vkSend;
 
         private Command controlLoaded;
+
+        
 
         public string EmailText
         {
@@ -51,8 +56,24 @@ namespace Gallery.ViewModel
                 }
             }
         }
+        public string VkText
+        {
+            get
+            {
+                return vkText;
+            }
+            set
+            {
+                if (vkText != value)
+                {
+                   vkText = value;
+                    OnPropertyChanged("VkText");
+                }
+            }
+        }
 
         public bool colorStatusText;
+        public bool colorStatusText2;
 
         public bool SendAnimation
         {
@@ -102,6 +123,22 @@ namespace Gallery.ViewModel
             }
         }
 
+        public string SendStatus2
+        {
+            get
+            {
+                return sendStatus2;
+            }
+            set
+            {
+                if (sendStatus2 != value)
+                {
+                    sendStatus2 = value;
+                    OnPropertyChanged("SendStatus2");
+                }
+            }
+        }
+
         public bool ColorStatusText
         {
             get
@@ -114,6 +151,22 @@ namespace Gallery.ViewModel
                 {
                     colorStatusText = value;
                     OnPropertyChanged("ColorStatusText");
+                }
+            }
+        }
+
+        public bool ColorStatusText2
+        {
+            get
+            {
+                return colorStatusText2;
+            }
+            set
+            {
+                if (colorStatusText2 != value)
+                {
+                    colorStatusText2 = value;
+                    OnPropertyChanged("ColorStatusText2");
                 }
             }
         }
@@ -197,28 +250,43 @@ namespace Gallery.ViewModel
                 return vkSend ??
                        (vkSend = new Command(async obj =>
                        {
-                           if (obj != null && obj is string)
+                           if (obj != null && obj is string && obj != "")
                            {
                                string Url = Explorer.ImgUrl;
                                string vkId = (string)obj;
 
 
 
-                               SendAnimation = false;
+                               SendAnimation2 = false;
                                await Task.Delay(100);
 
 
-                               var services = new ServiceCollection();
-                               services.AddAudioBypass();
-                               var api = new VkApi(services);
-                               api.Authorize(new ApiAuthParams
-                               {
-                                   Login = "lexlex9797@yandex.ru",
-                                   Password = "Gosudarstvo987GrOb987GrOb"
-                               });
 
 
-                               var uploadServer = api.Photo.GetMessagesUploadServer(94531791); //Получаем ссылку на сервер для загрузок
+
+                               //var services = new ServiceCollection();
+                               //services.AddAudioBypass();
+                               //var api = new VkApi(services);
+                               //for (int i = 0; i < Utilits.ProcessLogin.GetLength(); i++)
+                               //{
+                               //    var number = 0;
+                               //    try
+                               //    {
+                               //        api.Authorize(new ApiAuthParams
+                               //        {
+                               //            Login = Utilits.ProcessLogin.GetLogin(number),
+                               //            Password = Utilits.ProcessLogin.GetPass(number)
+                               //        });
+                               //        break;
+                               //    }
+                               //    catch
+                               //    {
+                               //        number++;
+                               //    }
+                               //}
+
+                               var api = Utilits.ApiVk.api;
+                               var uploadServer = api.Photo.GetMessagesUploadServer(1); //Получаем ссылку на сервер для загрузок
                                var uploadServerUri = uploadServer.UploadUrl;
                                var uploader = new WebClient();
                                var uploadResponseInBytes = uploader.UploadFile(uploadServerUri, Url); // Загружаем фото на сервер
@@ -229,26 +297,45 @@ namespace Gallery.ViewModel
                                Random random = new Random();
                                int randomNumber = random.Next(1, 99999999);
 
-                               if (Regex.IsMatch(vkId, @"^\d+$"))
+                               try
                                {
-                                   var check = api.Messages.Send(new VkNet.Model.RequestParams.MessagesSendParams
+                                   if (Regex.IsMatch(vkId, @"^\d+$"))
                                    {
-                                       RandomId = randomNumber, // уникальный
-                                       UserId = Int32.Parse(vkId),
-                                       Attachments = photo
-                                   });
+                                       var check = api.Messages.Send(new VkNet.Model.RequestParams.MessagesSendParams
+                                       {
+                                           RandomId = randomNumber, // уникальный
+                                           UserId = Int32.Parse(vkId),
+                                       });
+
+                                   }
+                                   else
+                                   {
+                                       var check = api.Messages.Send(new VkNet.Model.RequestParams.MessagesSendParams
+                                       {
+                                           RandomId = randomNumber, // уникальный
+                                           Domain = vkId,
+                                           Attachments = photo
+                                       });
+                                   }
+
+                                   SendAnimation2 = true;
+                                   ColorStatusText2 = true;
+                                   SendStatus2 = "Сообщение успешно отправлено!";
+                                   ResetSendStatus();
                                }
-                               else
+                               catch
                                {
-                                   var check = api.Messages.Send(new VkNet.Model.RequestParams.MessagesSendParams
-                                   {
-                                       RandomId = randomNumber, // уникальный
-                                       Domain = vkId,
-                                       Attachments = photo
-                                   });
+                                   SendAnimation2 = true;
+                                   ColorStatusText2 = false;
+                                   SendStatus2 = "Пользователь не найден или он ограничил круг лиц, которые могут отправлять ему сообщения!";
+                                   ResetSendStatus();
                                }
 
                                
+
+
+
+
 
                                //EmailManager emai = new EmailManager();
 

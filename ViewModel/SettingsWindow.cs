@@ -13,6 +13,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Globalization;
+using VkNet;
 
 namespace Gallery.ViewModel
 {
@@ -42,7 +43,7 @@ namespace Gallery.ViewModel
         bool PIsCheckUsb = false;
         string PPathUSB = string.Empty;
         string formEmailTitle = string.Empty;
-        string styleImage = "../Image/wait.png";
+        string styleImage = "../Image/fon2.jpg";
         int selectComboStyle = 0;
         bool _IsVidEnable = true;
         int _VidSec = 2;
@@ -263,6 +264,7 @@ namespace Gallery.ViewModel
                       {
                           windows.DialogResult = Return;
                       }
+
                   }));
             }
         }
@@ -383,7 +385,7 @@ namespace Gallery.ViewModel
         {
             if (index == 0)
             {
-                StyleImage = "../Image/white.png";
+                StyleImage = "../Image/fon1.jpg";
             }
             else if (index == 1)
             {
@@ -395,7 +397,7 @@ namespace Gallery.ViewModel
             }
             else
             {
-                StyleImage = "../Image/wait.png";
+                StyleImage = "../Image/fon2.jpg";
             }
         }
 
@@ -744,5 +746,8 @@ namespace Gallery.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+       
+
     }
 }
