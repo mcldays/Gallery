@@ -271,11 +271,11 @@ namespace Gallery.Controls
                 return;
             }
 
-            if(bukva == (Keys)189)
-            {
-                PressKey(bukva, false);
-                return;
-            }
+            //if(bukva == (Keys)189)
+            //{
+            //    PressKey(bukva, false);
+            //    return;
+            //}
 
             if ((shift || ShiftPressed || CapsPressed) && !cifra )
                 PressKey(Keys.LShiftKey, false);
