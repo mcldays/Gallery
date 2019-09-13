@@ -12,12 +12,14 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using VkNet;
 using VkNet.AudioBypassService.Extensions;
 using VkNet.Model;
+using Gallery.View;
 
 namespace Gallery.ViewModel
 {
@@ -25,7 +27,7 @@ namespace Gallery.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private string emailText = string.Empty;
-        private string vkText = string.Empty;
+        private int countCopy = 1;
 
         private string sendStatus = string.Empty;
         private string sendStatus2 = string.Empty;
@@ -35,7 +37,9 @@ namespace Gallery.ViewModel
 
         private UserControl userControl;
         private Command emailSend;
-        private Command vkSend;
+        private Command print;
+        private Command minusCount;
+        private Command plusCount;
 
         private Command controlLoaded;
 
@@ -60,18 +64,18 @@ namespace Gallery.ViewModel
         }
 
 
-        public string VkText
+        public int CountCopy
         {
             get
             {
-                return vkText;
+                return countCopy;
             }
             set
             {
-                if (vkText != value)
+                if (countCopy != value)
                 {
-                   vkText = value;
-                    OnPropertyChanged("VkText");
+                   countCopy = value;
+                    OnPropertyChanged("CountCopy");
                 }
             }
         }
@@ -248,64 +252,72 @@ namespace Gallery.ViewModel
             }
         }
 
-
-        public Command VkSend
+        public Command MinusCount
         {
             get
             {
-                return vkSend ??
-                       (vkSend = new Command(async obj =>
+                return minusCount ??
+                       (minusCount = new Command(async obj =>
+                       {
+                           if (obj != null && obj is string && obj != "")
+                           {
+                               int tempCopyCount = Int32.Parse((string)obj);
+                               if (tempCopyCount > 1)
+                               {
+                                   CountCopy--;
+                               }
+                           }
+                       }));
+            }
+        }
+
+        public Command PlusCount
+        {
+            get
+            {
+                return plusCount ??
+                       (plusCount = new Command(async obj =>
+                       {
+                           if (obj != null && obj is string && obj != "")
+                           {
+                               int tempCopyCount = Int32.Parse((string)obj);
+                               if (tempCopyCount < 10)
+                               {
+                                   CountCopy++;
+                               }
+
+                           }
+                       }));
+            }
+        }
+
+
+        public Command Print
+        {
+            get
+            {
+                return print ??
+                       (print = new Command(async obj =>
                        {
                            if (obj != null && obj is string && obj != "")
                            {
                                string Url = Explorer.ImgUrl;
-                               string vkId = (string)obj;
+                               int tempCopyCount = Int32.Parse((string)obj);
                                SendAnimation2 = false;
                                await Task.Delay(100);
 
-                               var api = Utilits.ApiVk.api;
-                               var uploadServer = api.Photo.GetMessagesUploadServer(1); //Получаем ссылку на сервер для загрузок
-                               var uploadServerUri = uploadServer.UploadUrl;
-                               var uploader = new WebClient();
-                               var uploadResponseInBytes = uploader.UploadFile(uploadServerUri, Url); // Загружаем фото на сервер
-                               var uploadResponseInString = Encoding.UTF8.GetString(uploadResponseInBytes);
-
-                               var photo = api.Photo.SaveMessagesPhoto(uploadResponseInString);
-
-                               Random random = new Random();
-                               int randomNumber = random.Next(1, 99999999);
-
+                               
                                try
                                {
-                                   if (Regex.IsMatch(vkId, @"^\d+$"))
-                                   {
-                                       var check = api.Messages.Send(new VkNet.Model.RequestParams.MessagesSendParams
-                                       {
-                                           RandomId = randomNumber, // уникальный
-                                           UserId = Int32.Parse(vkId),
-                                       });
-
-                                   }
-                                   else
-                                   {
-                                       var check = api.Messages.Send(new VkNet.Model.RequestParams.MessagesSendParams
-                                       {
-                                           RandomId = randomNumber, // уникальный
-                                           Domain = vkId,
-                                           Attachments = photo
-                                       });
-                                   }
 
                                    SendAnimation2 = true;
-                                   ColorStatusText2 = true;
                                    SendStatus2 = "Сообщение успешно отправлено!";
                                    ResetSendStatus();
-                                   VkText = string.Empty;
+                                   CountCopy = 1;
                                }
                                catch
                                {
                                    SendAnimation2 = true;
-                                   ColorStatusText2 = false;
                                    SendStatus2 = "Пользователь не найден или он ограничил круг лиц, которые могут отправлять ему сообщения!";
                                    ResetSendStatus();
                                }
