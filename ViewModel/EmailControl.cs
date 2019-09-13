@@ -12,12 +12,10 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using VkNet;
-using VkNet.AudioBypassService.Extensions;
-using VkNet.Model;
+using System.Windows.Input;
+using System.Windows.Navigation;
+using Gallery.View;
+
 
 namespace Gallery.ViewModel
 {
@@ -248,106 +246,18 @@ namespace Gallery.ViewModel
             }
         }
 
+        private ICommand _photoCommand;
+        public ICommand PhotoCommand => _photoCommand ?? (_photoCommand = new Command((c =>
+                                                {
+                                                    App.CurrentApp.Kw = new Window1();
 
-        public Command VkSend
-        {
-            get
-            {
-                return vkSend ??
-                       (vkSend = new Command(async obj =>
-                       {
-                           if (obj != null && obj is string && obj != "")
-                           {
-                               string Url = Explorer.ImgUrl;
-                               string vkId = (string)obj;
-                               SendAnimation2 = false;
-                               await Task.Delay(100);
-
-                               var api = Utilits.ApiVk.api;
-                               var uploadServer = api.Photo.GetMessagesUploadServer(1); //Получаем ссылку на сервер для загрузок
-                               var uploadServerUri = uploadServer.UploadUrl;
-                               var uploader = new WebClient();
-                               var uploadResponseInBytes = uploader.UploadFile(uploadServerUri, Url); // Загружаем фото на сервер
-                               var uploadResponseInString = Encoding.UTF8.GetString(uploadResponseInBytes);
-
-                               var photo = api.Photo.SaveMessagesPhoto(uploadResponseInString);
-
-                               Random random = new Random();
-                               int randomNumber = random.Next(1, 99999999);
-
-                               try
-                               {
-                                   if (Regex.IsMatch(vkId, @"^\d+$"))
-                                   {
-                                       var check = api.Messages.Send(new VkNet.Model.RequestParams.MessagesSendParams
-                                       {
-                                           RandomId = randomNumber, // уникальный
-                                           UserId = Int32.Parse(vkId),
-                                       });
-
-                                   }
-                                   else
-                                   {
-                                       var check = api.Messages.Send(new VkNet.Model.RequestParams.MessagesSendParams
-                                       {
-                                           RandomId = randomNumber, // уникальный
-                                           Domain = vkId,
-                                           Attachments = photo
-                                       });
-                                   }
-
-                                   SendAnimation2 = true;
-                                   ColorStatusText2 = true;
-                                   SendStatus2 = "Сообщение успешно отправлено!";
-                                   ResetSendStatus();
-                                   VkText = string.Empty;
-                               }
-                               catch
-                               {
-                                   SendAnimation2 = true;
-                                   ColorStatusText2 = false;
-                                   SendStatus2 = "Пользователь не найден или он ограничил круг лиц, которые могут отправлять ему сообщения!";
-                                   ResetSendStatus();
-                               }
-
-                               
+                                                    //NavigationService.Navigate(new Photo_Page());
+                                                    App.CurrentApp.Kw.Show();
+                                                    App.CurrentApp.Kw.Topmost = true;
+                                                }
+                                            )));
 
 
-
-
-
-                               //EmailManager emai = new EmailManager();
-
-                               //if (!emai.IsValidEmail(Email))
-                               //{
-                               //    ColorStatusText = false;
-                               //    SendStatus = "Введен некорректный Email";
-                               //    ResetSendStatus();
-                               //    SendAnimation = true;
-                               //    return;
-                               //}
-                               //string ReturnedMsg = await emai.SendEmail(Email, Url);
-                               //SendAnimation = true;
-
-                               //ColorStatusText = string.IsNullOrEmpty(ReturnedMsg);
-                               //if (ColorStatusText)
-                               //{
-                               //    // Успешно отправил
-                               //    SendStatus = "Сообщение успешно отправлено!";
-                               //    ResetSendStatus();
-                               //    Explorer.AddMailGood(Email);
-                               //}
-                               //else
-                               //{
-                               //    // Ошибка отправки
-                               //    SendStatus = ReturnedMsg; //"Ошибка при отправке сообщения!"
-                               //    ResetSendStatus();
-                               //    Explorer.AddMailBad();
-                               //}
-                           }
-                       }));
-            }
-        }
 
         private async void ResetSendStatus()
         {

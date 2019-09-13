@@ -128,7 +128,7 @@
                         <Rectangle RadiusX="5" RadiusY="5" Width="{Binding Width,ElementName=textBlock}" Height="{Binding Height,ElementName=textBlock}" Stroke="#f39100" StrokeThickness="3" VerticalAlignment="Top" Margin="10,0,0,0"/>
                     </Grid>
                     <Grid Grid.Column="2">
-                        <Button  IsEnabled="{Binding SendAnimation2}" Command="{Binding VkSend}" CommandParameter="{Binding ElementName=textBlock2, Path=Text}" Style="{StaticResource SendButton2}" BorderThickness="0" Content="Распечатать" Margin="10,0,-10,0"/>
+                        <Button  IsEnabled="{Binding SendAnimation2}" Command="{Binding PhotoCommand}" CommandParameter="{Binding ElementName=textBlock2, Path=Text}" Style="{StaticResource SendButton2}" BorderThickness="0" Content="Распечатать" Margin="10,0,-10,0"/>
                     </Grid>
                 </Grid>
 

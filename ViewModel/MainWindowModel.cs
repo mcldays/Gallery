@@ -12,7 +12,7 @@ using System.Windows.Controls;
 using System.IO;
 using System.Linq;
 using System.Windows.Data;
-using VkNet;
+
 
 
 namespace Gallery.ViewModel
