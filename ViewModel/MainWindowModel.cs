@@ -12,6 +12,7 @@ using System.Windows.Controls;
 using System.IO;
 using System.Linq;
 using System.Windows.Data;
+using VkNet;
 
 
 namespace Gallery.ViewModel
@@ -37,6 +38,8 @@ namespace Gallery.ViewModel
         private Command showImage;
         private LoadImage loadImage;
         private List<string> backgrounds;
+
+        
 
         public MainWindowModel()
         {
@@ -324,7 +327,7 @@ namespace Gallery.ViewModel
         {
             if (index == 0)
             {
-                FontImage = "../Image/white.png";
+                FontImage = "../Image/fon1.jpg";
             }
             else if (index == 1)
             {
@@ -336,7 +339,7 @@ namespace Gallery.ViewModel
             }
             else
             {
-                FontImage = "../Image/wait.png";
+                FontImage = "../Image/fon2.jpg";
             }
         }
 

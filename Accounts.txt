@@ -1,3 +1,0 @@
-Vova;12345
-Vasya;Pupkin
-Pohui;Nahui;

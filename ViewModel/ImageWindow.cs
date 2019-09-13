@@ -227,6 +227,7 @@ namespace Gallery.ViewModel
                                     IsEnabelRight = true;
                                 }
 
+
                                 break;
                             }
                         }

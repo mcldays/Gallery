@@ -136,7 +136,7 @@
                                 <i:InvokeCommandAction Command="{Binding ComboSelectionChanged}" CommandParameter="{Binding ElementName=listComboBox, Path=SelectedIndex}"/>
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
-                        <ComboBoxItem>Белый стиль</ComboBoxItem>
+                        <ComboBoxItem>Театральный стиль</ComboBoxItem>
                         <ComboBoxItem>Тёмный стиль</ComboBoxItem>
                         <ComboBoxItem>Звёздный стиль</ComboBoxItem>
                         <ComboBoxItem>Светлый стиль</ComboBoxItem>

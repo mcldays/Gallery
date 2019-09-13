@@ -10,9 +10,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using VkNet.Model;
+using Application = System.Windows.Application;
 
 namespace Gallery.Utilits
 {
+
+
     class LoadImage
     {
         string path = string.Empty;
@@ -40,8 +44,24 @@ namespace Gallery.Utilits
             }
         }
 
+        public async void Go_timer()
+        {
+
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(5);
+            timer.Tick += Timer_Tick;
+            timer.Start();
+        }
+
+        private async void Timer_Tick(object sender, EventArgs e)
+        {
+            await GetFiles(PImageList);
+        }
+
         public async void FileLoad_Tick(object sender, EventArgs e)
         {
+            Go_timer();
+
             await GetFiles(PImageList);
         }
 
@@ -53,7 +73,7 @@ namespace Gallery.Utilits
             }*/
         }
 
-        private async Task GetFiles(ObservableCollection<ImageModel> PImageList)
+        public async Task GetFiles(ObservableCollection<ImageModel> PImageList)
         {
             await Task.Run(delegate { 
                 try
@@ -129,10 +149,10 @@ namespace Gallery.Utilits
                                 //TimerTick();
                             }
                         }
-                        else
-                        {
-                            ParentWindow.FileManager_ProgressStatus($"В {path} медиа-файлы не найдены!");
-                        }
+                        //else
+                        //{
+                        //    //ParentWindow.FileManager_ProgressStatus($"В {path} медиа-файлы не найдены!");
+                        //}
                     }
                 }
                 catch (Exception e)
