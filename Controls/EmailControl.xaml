@@ -104,11 +104,12 @@
                         <ColumnDefinition Width="20"></ColumnDefinition>
                         <ColumnDefinition Width="149"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" HorizontalAlignment="Left" Margin="220,0,0,0" Width="44"/>
+                    <Grid  Grid.Column="0" Background="White" Margin="317,0,220,0" RenderTransformOrigin="3.407,0.725">
 
-                    <Grid  Grid.Column="0" Background="White" Margin="0,0,552,0" RenderTransformOrigin="3.407,0.725">
-                        <TextBox Text="{Binding VkText}" BorderThickness="0" Name="textBlock2" Padding="14,5,5,5" FontSize="22" Height="40" Width="Auto" VerticalAlignment="Top" Loaded="textBlock_Loaded" IsVisibleChanged="textBlock_IsVisibleChanged" Margin="0,0,214,0">
+                        <TextBox Text="{Binding CountCopy}" BorderThickness="0" Name="textBlock2" Padding="14,5,5,5" FontSize="22" Height="40" VerticalAlignment="Top" Loaded="textBlock_Loaded" IsVisibleChanged="textBlock_IsVisibleChanged">
 
-                            <TextBox.Style>
+                            <!--<TextBox.Style>
                                 <Style TargetType="TextBox" xmlns:sys="clr-namespace:System;assembly=mscorlib">
                                     <Style.Triggers>
                                         <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
@@ -122,14 +123,18 @@
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>
-                            </TextBox.Style>
+                            </TextBox.Style>-->
 
                         </TextBox>
-                        <Rectangle RadiusX="5" RadiusY="5" Width="{Binding Width,ElementName=textBlock}" Height="{Binding Height,ElementName=textBlock}" Stroke="#f39100" StrokeThickness="3" VerticalAlignment="Top" Margin="10,0,0,0"/>
+                        <Rectangle RadiusX="5" RadiusY="5" Width="{Binding Width,ElementName=textBlock}" Height="{Binding Height,ElementName=textBlock}" Stroke="#f39100" StrokeThickness="3" VerticalAlignment="Top"/>
                     </Grid>
+
+                    <Grid Grid.Column="0" HorizontalAlignment="Right" Margin="0,0,220,0" Width="95"/>
                     <Grid Grid.Column="2">
-                        <Button  IsEnabled="{Binding SendAnimation2}" Command="{Binding PhotoCommand}" CommandParameter="{Binding ElementName=textBlock2, Path=Text}" Style="{StaticResource SendButton2}" BorderThickness="0" Content="Распечатать" Margin="10,0,-10,0"/>
+                        <Button  IsEnabled="{Binding SendAnimation2}" Command="{Binding Print}" CommandParameter="{Binding ElementName=textBlock2, Path=Text}" Style="{StaticResource SendButton2}" BorderThickness="0" Content="Распечатать" Margin="10,0,-10,0"/>
                     </Grid>
+                    <Button  IsEnabled="{Binding SendAnimation2}" Command="{Binding PlusCount}" CommandParameter="{Binding Text, ElementName=textBlock2}" Style="{StaticResource SendButton2}" BorderThickness="0" Content="+" Margin="418,0,171,0"/>
+                    <Button  IsEnabled="{Binding SendAnimation2}" Command="{Binding MinusCount}" CommandParameter="{Binding Text, ElementName=textBlock2}" Style="{StaticResource SendButton2}" BorderThickness="0" Content="-" Margin="269,0,320,0"/>
                 </Grid>
 
                 <Grid >

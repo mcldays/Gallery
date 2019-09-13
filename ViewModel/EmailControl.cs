@@ -23,7 +23,7 @@ namespace Gallery.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private string emailText = string.Empty;
-        private string vkText = string.Empty;
+        private int countCopy = 1;
 
         private string sendStatus = string.Empty;
         private string sendStatus2 = string.Empty;
@@ -33,7 +33,9 @@ namespace Gallery.ViewModel
 
         private UserControl userControl;
         private Command emailSend;
-        private Command vkSend;
+        private Command print;
+        private Command minusCount;
+        private Command plusCount;
 
         private Command controlLoaded;
 
@@ -58,18 +60,18 @@ namespace Gallery.ViewModel
         }
 
 
-        public string VkText
+        public int CountCopy
         {
             get
             {
-                return vkText;
+                return countCopy;
             }
             set
             {
-                if (vkText != value)
+                if (countCopy != value)
                 {
-                   vkText = value;
-                    OnPropertyChanged("VkText");
+                   countCopy = value;
+                    OnPropertyChanged("CountCopy");
                 }
             }
         }
@@ -246,16 +248,83 @@ namespace Gallery.ViewModel
             }
         }
 
-        private ICommand _photoCommand;
-        public ICommand PhotoCommand => _photoCommand ?? (_photoCommand = new Command((c =>
-                                                {
-                                                    App.CurrentApp.Kw = new Window1();
+        public Command MinusCount
+        {
+            get
+            {
+                return minusCount ??
+                       (minusCount = new Command(async obj =>
+                       {
+                           if (obj != null && obj is string && obj != "")
+                           {
+                               int tempCopyCount = Int32.Parse((string)obj);
+                               if (tempCopyCount > 1)
+                               {
+                                   CountCopy--;
+                               }
+                           }
+                       }));
+            }
+        }
 
-                                                    //NavigationService.Navigate(new Photo_Page());
-                                                    App.CurrentApp.Kw.Show();
-                                                    App.CurrentApp.Kw.Topmost = true;
-                                                }
-                                            )));
+        public Command PlusCount
+        {
+            get
+            {
+                return plusCount ??
+                       (plusCount = new Command(async obj =>
+                       {
+                           if (obj != null && obj is string && obj != "")
+                           {
+                               int tempCopyCount = Int32.Parse((string)obj);
+                               if (tempCopyCount < 10)
+                               {
+                                   CountCopy++;
+                               }
+
+                           }
+                       }));
+            }
+        }
+
+
+        public Command Print
+        {
+            get
+            {
+                return print ??
+                       (print = new Command(async obj =>
+                       {
+                           if (obj != null && obj is string && obj != "")
+                           {
+                               string Url = Explorer.ImgUrl;
+                               int tempCopyCount = Int32.Parse((string)obj);
+                               SendAnimation2 = false;
+                               await Task.Delay(100);
+
+                               
+                               try
+                               {
+
+                                   SendAnimation2 = true;
+                                   SendStatus2 = "Сообщение успешно отправлено!";
+                                   ResetSendStatus();
+                                   CountCopy = 1;
+                               }
+                               catch
+                               {
+                                   SendAnimation2 = true;
+                                   SendStatus2 = "Пользователь не найден или он ограничил круг лиц, которые могут отправлять ему сообщения!";
+                                   ResetSendStatus();
+                               }
+
+                               
+
+
+
+
+
+                               //EmailManager emai = new EmailManager();
 
 
 
