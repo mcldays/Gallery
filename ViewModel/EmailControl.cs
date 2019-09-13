@@ -235,5 +235,10 @@ namespace Gallery.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+
+
+
+
     }
 }
