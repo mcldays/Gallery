@@ -10,6 +10,7 @@ using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,6 +23,7 @@ using VkNet;
 using VkNet.AudioBypassService.Extensions;
 using VkNet.Model;
 using Gallery.View;
+using Rect = System.Windows.Rect;
 
 namespace Gallery.ViewModel
 {
@@ -303,85 +305,56 @@ namespace Gallery.ViewModel
                        {
                            if (obj != null && obj is string && obj != "")
                            {
-                               string Url = Explorer.ImgUrl;
-
                                try
-                               {
-                                   int tempCopyCount = Int32.Parse((string)obj);
+                               { 
                                    SendAnimation2 = false;
                                    await Task.Delay(100);
 
+                                   for (int i = 0; i < CountCopy; i++)
+                                   {
+                                       PrintDocument pd = new PrintDocument();
+                                       pd.OriginAtMargins = false;
+                                       pd.PrintPage += PrintPage;
 
-                               
-
-                                   App.CurrentApp.Kw = new PhotoWindow(Explorer.ImgUrl, tempCopyCount);
-
-                                   App.CurrentApp.Kw.Show();
-                                   //App.CurrentApp.Kw.Topmost = true;
+                                       pd.Print();
+                                   }
 
 
+                                   ColorStatusText = true;
                                    SendAnimation2 = true;
-                                   SendStatus2 = "Распечатано!";
+                                   SendStatus2 = "Отправлено на печать!";
                                    ResetSendStatus();
                                    CountCopy = 1;
                                }
                                catch
                                {
+                                   ColorStatusText = false;
                                    SendAnimation2 = true;
-                                   SendStatus2 = "";
-                                   ResetSendStatus();
+                                   SendStatus2 = "Ошибка при печати";
                                }
 
-
-
-
-
-
-
-                               //EmailManager emai = new EmailManager();
-
-                               //if (!emai.IsValidEmail(Email))
-                               //{
-                               //    ColorStatusText = false;
-                               //    SendStatus = "Введен некорректный Email";
-                               //    ResetSendStatus();
-                               //    SendAnimation = true;
-                               //    return;
-                               //}
-                               //string ReturnedMsg = await emai.SendEmail(Email, Url);
-                               //SendAnimation = true;
-
-                               //ColorStatusText = string.IsNullOrEmpty(ReturnedMsg);
-                               //if (ColorStatusText)
-                               //{
-                               //    // Успешно отправил
-                               //    SendStatus = "Сообщение успешно отправлено!";
-                               //    ResetSendStatus();
-                               //    Explorer.AddMailGood(Email);
-                               //}
-                               //else
-                               //{
-                               //    // Ошибка отправки
-                               //    SendStatus = ReturnedMsg; //"Ошибка при отправке сообщения!"
-                               //    ResetSendStatus();
-                               //    Explorer.AddMailBad();
-                               //}
                            }
                        }));
             }
         }
 
+
         private void PrintPage(object o, PrintPageEventArgs e)
         {
-            System.Drawing.Image img = System.Drawing.Image.FromFile(Directory.GetCurrentDirectory() + "\\readyFile.png");
-            System.Drawing.Point loc = new System.Drawing.Point(0, 0);
-            e.Graphics.DrawImage(img, loc);
+            string Url = Explorer.ImgUrl;
+            System.Drawing.Image img = System.Drawing.Image.FromFile(Url);
+            var a = e.MarginBounds;
+            Margins b = e.PageSettings.Margins;
+            System.Drawing.Rectangle c = new System.Drawing.Rectangle(0, 0, a.Width + b.Left + b.Right, a.Height + b.Top + b.Bottom);
+            e.Graphics.DrawImage(img, c);
         }
+
 
         private async void ResetSendStatus()
         {
             await Task.Delay(5000);
             SendStatus = string.Empty;
+            SendStatus2 = string.Empty;
         }
 
         private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)

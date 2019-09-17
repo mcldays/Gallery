@@ -94,7 +94,34 @@
                     </Grid>
                 </Grid>
 
-                <TextBlock Grid.Column="0" Padding="0,5,0,5" FontSize="17" VerticalAlignment="Bottom">Распечатайте файл - количество копий:</TextBlock>
+
+                <Grid >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Padding="0,5,0,5" FontSize="17" VerticalAlignment="Bottom">Распечатайте файл - количество копий:</TextBlock>
+                        <TextBlock Grid.Column="1" IsEnabled="{Binding ColorStatusText}"  Text="{Binding SendStatus2}" Padding="20,5,0,5" FontSize="17" TextWrapping="Wrap" TextAlignment="Right" Grid.ColumnSpan="3">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Padding" Value="1"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsEnabled" Value="True">
+                                            <Setter Property="Foreground" Value="Green"/>
+                                        </Trigger>
+
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Foreground" Value="Red"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+
+                    </Grid>
+                </Grid>
 
 
 

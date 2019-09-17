@@ -65,66 +65,72 @@ namespace Gallery.View
 
         private void PrintPage(object o, PrintPageEventArgs e)
         {
-            System.Drawing.Image img = System.Drawing.Image.FromFile(Directory.GetCurrentDirectory() + "\\readyFile.png");
-            System.Drawing.Point loc = new System.Drawing.Point(0, 0);
-            e.Graphics.DrawImage(img, loc);
+            System.Drawing.Image img = System.Drawing.Image.FromFile(NameImage);
+            //System.Drawing.Image img = System.Drawing.Image.FromFile(Directory.GetCurrentDirectory() + "\\readyFile.png");
+            //System.Drawing.Point loc = new System.Drawing.Point(0, 0);
+            var a = e.MarginBounds;
+            Margins b = e.PageSettings.Margins;
+            System.Drawing.Rectangle c = new System.Drawing.Rectangle(0,0,a.Width+b.Left+b.Right,a.Height+b.Top+b.Bottom);
+
+
+            e.Graphics.DrawImage(img, c);
         }
 
-        private void MakeScreenElement(FrameworkElement elem)
-        {
-            RenderTargetBitmap renderTargetBitmap =
-                new RenderTargetBitmap((int)elem.Width, (int)elem.Height, 96, 96, PixelFormats.Pbgra32);
-            renderTargetBitmap.Render(elem);
-            PngBitmapEncoder pngImage = new PngBitmapEncoder();
-            pngImage.Frames.Add(BitmapFrame.Create(renderTargetBitmap));
-            using (Stream fileStream = File.Create("readyFile.png"))
-            {
-                pngImage.Save(fileStream);
-            }
+        //private void MakeScreenElement(FrameworkElement elem)
+        //{
+        //    RenderTargetBitmap renderTargetBitmap =
+        //        new RenderTargetBitmap((int)elem.Width, (int)elem.Height, 96, 96, PixelFormats.Pbgra32);
+        //    renderTargetBitmap.Render(elem);
+        //    PngBitmapEncoder pngImage = new PngBitmapEncoder();
+        //    pngImage.Frames.Add(BitmapFrame.Create(renderTargetBitmap));
+        //    using (Stream fileStream = File.Create("readyFile.png"))
+        //    {
+        //        pngImage.Save(fileStream);
+        //    }
 
-        }
+        //}
 
 
         private void PhotoWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i < CountCopy; i++)
-            {
-                PrintDocument pd = new PrintDocument();
-                //пробуй и true и false
-                pd.OriginAtMargins = false;
-                pd.PrintPage += PrintPage;
-                PrintDialog printDialog = new PrintDialog();
+            //for (int i = 0; i < CountCopy; i++)
+            //{
+            //    PrintDocument pd = new PrintDocument();
+            //    //пробуй и true и false
+            //    pd.OriginAtMargins = false;
+            //    pd.PrintPage += PrintPage;
+            //    PrintDialog printDialog = new PrintDialog();
 
 
-                Border.Visibility = Visibility.Hidden;
-                Border.VerticalAlignment = VerticalAlignment.Top;
-                Border.HorizontalAlignment = HorizontalAlignment.Left;
+            //    Border.Visibility = Visibility.Hidden;
+            //    Border.VerticalAlignment = VerticalAlignment.Top;
+            //    Border.HorizontalAlignment = HorizontalAlignment.Left;
 
-                // Увеличить размер в 5 раз
-                Border.Margin = new Thickness(0, 0, 0, 0);
-                TransformGroup group = new TransformGroup();
-                //group.Children.Add(new RotateTransform(270));
-                group.Children.Add(new ScaleTransform(0.578, 0.578));
+            //    // Увеличить размер в 5 раз
+            //    Border.Margin = new Thickness(0, 0, 0, 0);
+            //    TransformGroup group = new TransformGroup();
+            //    //group.Children.Add(new RotateTransform(270));
+            //    group.Children.Add(new ScaleTransform(0.578, 0.578));
 
-                Border.LayoutTransform = group;
-                // Определить поля
-                //int pageMargin = 10;
-                int pageMargin = 0;
+            //    Border.LayoutTransform = group;
+            //    // Определить поля
+            //    //int pageMargin = 10;
+            //    int pageMargin = 0;
 
-                // Получить размер страницы
-                System.Windows.Size pageSize = new System.Windows.Size(printDialog.PrintableAreaWidth,
-                    printDialog.PrintableAreaHeight);
+            //    // Получить размер страницы
+            //    System.Windows.Size pageSize = new System.Windows.Size(printDialog.PrintableAreaWidth,
+            //        printDialog.PrintableAreaHeight);
 
-                // Инициировать установку размера элемента
-                Border.Measure(pageSize);
-                //Border.Arrange(new Rect(pageMargin + 20, pageMargin, pageSize.Width, pageSize.Height));
-                Border.Arrange(new Rect(pageMargin, pageMargin, pageSize.Width, pageSize.Height));
-                Border.Visibility = Visibility.Visible;
-                Thread.Sleep(5000);
-                MakeScreenElement(Border);
+            //    // Инициировать установку размера элемента
+            //    Border.Measure(pageSize);
+            //    //Border.Arrange(new Rect(pageMargin + 20, pageMargin, pageSize.Width, pageSize.Height));
+            //    Border.Arrange(new Rect(pageMargin, pageMargin, pageSize.Width, pageSize.Height));
+            //    Border.Visibility = Visibility.Visible;
+            //    Thread.Sleep(5000);
+            //    //MakeScreenElement(Border);
 
-                pd.Print();
-            }
+            //    pd.Print();
+            //}
 
             Close();
         }
