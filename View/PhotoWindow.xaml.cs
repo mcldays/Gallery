@@ -108,7 +108,8 @@ namespace Gallery.View
 
                 Border.LayoutTransform = group;
                 // Определить поля
-                int pageMargin = 10;
+                //int pageMargin = 10;
+                int pageMargin = 0;
 
                 // Получить размер страницы
                 System.Windows.Size pageSize = new System.Windows.Size(printDialog.PrintableAreaWidth,
@@ -116,7 +117,8 @@ namespace Gallery.View
 
                 // Инициировать установку размера элемента
                 Border.Measure(pageSize);
-                Border.Arrange(new Rect(pageMargin + 20, pageMargin, pageSize.Width, pageSize.Height));
+                //Border.Arrange(new Rect(pageMargin + 20, pageMargin, pageSize.Width, pageSize.Height));
+                Border.Arrange(new Rect(pageMargin, pageMargin, pageSize.Width, pageSize.Height));
                 Border.Visibility = Visibility.Visible;
                 Thread.Sleep(5000);
                 MakeScreenElement(Border);
