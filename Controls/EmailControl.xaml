@@ -131,7 +131,7 @@
 
                     <Grid Grid.Column="0" HorizontalAlignment="Right" Margin="0,0,220,0" Width="95"/>
                     <Grid Grid.Column="2">
-                        <Button  IsEnabled="{Binding SendAnimation2}" Command="{Binding Print}" CommandParameter="{Binding ElementName=textBlock2, Path=Text}" Style="{StaticResource SendButton2}" BorderThickness="0" Content="Распечатать" Margin="10,0,-10,0"/>
+                        <Button  IsEnabled="{Binding SendAnimation2}" Command="{Binding PhotoCommand}" CommandParameter="{Binding ElementName=textBlock2, Path=Text}" Style="{StaticResource SendButton2}" BorderThickness="0" Content="Распечатать" Margin="10,0,-10,0"/>
                     </Grid>
                     <Button  IsEnabled="{Binding SendAnimation2}" Command="{Binding PlusCount}" CommandParameter="{Binding Text, ElementName=textBlock2}" Style="{StaticResource SendButton2}" BorderThickness="0" Content="+" Margin="418,0,171,0"/>
                     <Button  IsEnabled="{Binding SendAnimation2}" Command="{Binding MinusCount}" CommandParameter="{Binding Text, ElementName=textBlock2}" Style="{StaticResource SendButton2}" BorderThickness="0" Content="-" Margin="269,0,320,0"/>

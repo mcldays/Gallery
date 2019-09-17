@@ -21,8 +21,8 @@ namespace Gallery
     public partial class App : Application
     {
         public static App CurrentApp => App.Current as App;
-        private Window1 _kw;
-        public Window1 Kw
+        private PrintPage _kw;
+        public PrintPage Kw
         {
             get => _kw;
             set { _kw = value; }

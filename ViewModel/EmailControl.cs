@@ -288,6 +288,20 @@ namespace Gallery.ViewModel
         }
 
 
+        private ICommand _photoCommand;
+        public ICommand PhotoCommand => _photoCommand ?? (_photoCommand = new Command((c =>
+                                                {
+                                                    App.CurrentApp.Kw = new PrintPage();
+
+                                                    //NavigationService.Navigate(new Photo_Page());
+                                                    App.CurrentApp.Kw.();
+                                                    App.CurrentApp.Kw.Topmost = true;
+                                                }
+                                            )));
+
+
+
+
         public Command Print
         {
             get
@@ -298,11 +312,11 @@ namespace Gallery.ViewModel
                            if (obj != null && obj is string && obj != "")
                            {
                                string Url = Explorer.ImgUrl;
-                               int tempCopyCount = Int32.Parse((string)obj);
+                               int tempCopyCount = Int32.Parse((string) obj);
                                SendAnimation2 = false;
                                await Task.Delay(100);
 
-                               
+
                                try
                                {
 
@@ -314,17 +328,21 @@ namespace Gallery.ViewModel
                                catch
                                {
                                    SendAnimation2 = true;
-                                   SendStatus2 = "Пользователь не найден или он ограничил круг лиц, которые могут отправлять ему сообщения!";
+                                   SendStatus2 =
+                                       "Пользователь не найден или он ограничил круг лиц, которые могут отправлять ему сообщения!";
                                    ResetSendStatus();
                                }
 
-                               
 
 
 
 
+                           }
+                       }));
+            }
+        }
 
-                               //EmailManager emai = new EmailManager();
+        //EmailManager emai = new EmailManager();
 
 
 
@@ -345,7 +363,7 @@ namespace Gallery.ViewModel
         }
 
 
-
+        
 
 
     }
