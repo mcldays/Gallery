@@ -21,13 +21,16 @@ namespace Gallery
     public partial class App : Application
     {
         public static App CurrentApp => App.Current as App;
-        private PrintPage _kw;
-        public PrintPage Kw
+
+       
+        private PhotoWindow _kw;
+        public PhotoWindow Kw
         {
             get => _kw;
             set { _kw = value; }
 
         }
+
 
         protected override void OnStartup(StartupEventArgs e)
         {

@@ -1,0 +1,27 @@
+﻿<Window x:Class="Gallery.View.PhotoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Gallery.View"
+        mc:Ignorable="d"
+        WindowState ="Maximized"
+        WindowStyle ="None"
+        Loaded="PhotoWindow_OnLoaded"
+        Height="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}}"
+        Title="PhotoWindow">
+    <Grid>
+        <Border Name="Border"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Height="648"
+                Padding="20" Margin="74,52,86,60" Width="600">
+            <StackPanel>
+                <Image Source="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=local:PhotoWindow},Path=NameImage}" 
+
+                />
+
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

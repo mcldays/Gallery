@@ -3,6 +3,7 @@ using Gallery.Utilits;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -12,7 +13,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Navigation;
 using Gallery.View;
 
@@ -288,20 +289,6 @@ namespace Gallery.ViewModel
         }
 
 
-        private ICommand _photoCommand;
-        public ICommand PhotoCommand => _photoCommand ?? (_photoCommand = new Command((c =>
-                                                {
-                                                    App.CurrentApp.Kw = new PrintPage();
-
-                                                    //NavigationService.Navigate(new Photo_Page());
-                                                    App.CurrentApp.Kw.();
-                                                    App.CurrentApp.Kw.Topmost = true;
-                                                }
-                                            )));
-
-
-
-
         public Command Print
         {
             get
@@ -312,24 +299,31 @@ namespace Gallery.ViewModel
                            if (obj != null && obj is string && obj != "")
                            {
                                string Url = Explorer.ImgUrl;
-                               int tempCopyCount = Int32.Parse((string) obj);
-                               SendAnimation2 = false;
-                               await Task.Delay(100);
-
 
                                try
                                {
+                                   int tempCopyCount = Int32.Parse((string)obj);
+                                   SendAnimation2 = false;
+                                   await Task.Delay(100);
+
+
+                               
+
+                                   App.CurrentApp.Kw = new PhotoWindow(Explorer.ImgUrl, tempCopyCount);
+
+                                   App.CurrentApp.Kw.Show();
+                                   //App.CurrentApp.Kw.Topmost = true;
+
 
                                    SendAnimation2 = true;
-                                   SendStatus2 = "Сообщение успешно отправлено!";
+                                   SendStatus2 = "Распечатано!";
                                    ResetSendStatus();
                                    CountCopy = 1;
                                }
                                catch
                                {
                                    SendAnimation2 = true;
-                                   SendStatus2 =
-                                       "Пользователь не найден или он ограничил круг лиц, которые могут отправлять ему сообщения!";
+                                   SendStatus2 = "";
                                    ResetSendStatus();
                                }
 
@@ -345,6 +339,32 @@ namespace Gallery.ViewModel
         //EmailManager emai = new EmailManager();
 
 
+                               //ColorStatusText = string.IsNullOrEmpty(ReturnedMsg);
+                               //if (ColorStatusText)
+                               //{
+                               //    // Успешно отправил
+                               //    SendStatus = "Сообщение успешно отправлено!";
+                               //    ResetSendStatus();
+                               //    Explorer.AddMailGood(Email);
+                               //}
+                               //else
+                               //{
+                               //    // Ошибка отправки
+                               //    SendStatus = ReturnedMsg; //"Ошибка при отправке сообщения!"
+                               //    ResetSendStatus();
+                               //    Explorer.AddMailBad();
+                               //}
+                           }
+                       }));
+            }
+        }
+
+        private void PrintPage(object o, PrintPageEventArgs e)
+        {
+            System.Drawing.Image img = System.Drawing.Image.FromFile(Directory.GetCurrentDirectory() + "\\readyFile.png");
+            System.Drawing.Point loc = new System.Drawing.Point(0, 0);
+            e.Graphics.DrawImage(img, loc);
+        }
 
         private async void ResetSendStatus()
         {
