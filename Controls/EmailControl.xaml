@@ -85,23 +85,53 @@
                                 </Style.Triggers>
                             </Style>
                         </TextBox.Style>-->
-
-                            </TextBox>
-                            <Rectangle RadiusX="5" RadiusY="5" Width="{Binding Width, ElementName=textBlock}" Height="{Binding Height, ElementName=textBlock}" Stroke="#f39100" StrokeThickness="3" VerticalAlignment="Top" Margin="0,0,-12,0" Grid.ColumnSpan="5"/>
-                        </Grid>
-                        <Grid Grid.Column="2">
-                            <Button IsEnabled="{Binding SendAnimation}" Command="{Binding EmailSend}" CommandParameter="{Binding Text, ElementName=textBlock}" Style="{StaticResource SendButton}" BorderThickness="0" Content="Отправить" Margin="10,0,-10,0"/>
-                        </Grid>
+                        </TextBox>
+                        <Rectangle RadiusX="5" RadiusY="5" Width="{Binding Width,ElementName=textBlock}" Height="{Binding Height,ElementName=textBlock}" Stroke="#f39100" StrokeThickness="3" VerticalAlignment="Top" Margin="0,0,-12,0" Grid.ColumnSpan="5"/>
                     </Grid>
-                    <TextBlock Padding="0,5,0,5" FontSize="17" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Margin="0,0,0,310"><Run Text="Распечатайте файл - количество копий:"/></TextBlock>
-                    <Grid Grid.ColumnSpan="2" Margin="0,251,0,265">
+                    <Grid Grid.Column="2">
+                        <Button IsEnabled="{Binding SendAnimation}" Command="{Binding EmailSend}" CommandParameter="{Binding ElementName=textBlock, Path=Text}" Style="{StaticResource SendButton}" BorderThickness="0" Content="Отправить" Margin="10,0,-10,0"/>
+                    </Grid>
+                </Grid>
+
+
+                <Grid >
+                    <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="632"/>
-                            <ColumnDefinition Width="20"/>
-                            <ColumnDefinition Width="149"/>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0" HorizontalAlignment="Left" Margin="220,0,0,0" Width="44"/>
-                        <Grid  Grid.Column="0" Background="White" Margin="317,0,220,0" RenderTransformOrigin="3.407,0.725">
+                        <TextBlock Grid.Column="0" Padding="0,5,0,5" FontSize="17" VerticalAlignment="Bottom">Распечатайте файл - количество копий:</TextBlock>
+                        <TextBlock Grid.Column="1" IsEnabled="{Binding ColorStatusText}"  Text="{Binding SendStatus2}" Padding="20,5,0,5" FontSize="17" TextWrapping="Wrap" TextAlignment="Right" Grid.ColumnSpan="3">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Padding" Value="1"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsEnabled" Value="True">
+                                            <Setter Property="Foreground" Value="Green"/>
+                                        </Trigger>
+
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Foreground" Value="Red"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+
+                    </Grid>
+                </Grid>
+
+
+
+                <Grid  FocusManager.FocusedElement="{Binding ElementName=textBlock}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="632"></ColumnDefinition>
+                        <ColumnDefinition Width="20"></ColumnDefinition>
+                        <ColumnDefinition Width="149"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" HorizontalAlignment="Left" Margin="220,0,0,0" Width="44"/>
+                    <Grid  Grid.Column="0" Background="White" Margin="317,0,220,0" RenderTransformOrigin="3.407,0.725">
 
                             <TextBox Text="{Binding CountCopy}" BorderThickness="0" x:Name="textBlock2" Padding="14,5,5,5" FontSize="22" Height="40" VerticalAlignment="Top" Loaded="textBlock_Loaded" IsVisibleChanged="textBlock_IsVisibleChanged">
 
@@ -121,34 +151,24 @@
                                 </Style>
                             </TextBox.Style>-->
 
-                            </TextBox>
-                            <Rectangle RadiusX="5" RadiusY="5" Width="{Binding Width, ElementName=textBlock}" Height="{Binding Height, ElementName=textBlock}" Stroke="#f39100" StrokeThickness="3" VerticalAlignment="Top"/>
-                        </Grid>
-
-                        <Grid Grid.Column="0" HorizontalAlignment="Right" Margin="0,0,220,0" Width="95"/>
-                        <Grid Grid.Column="2">
-                            <Button  IsEnabled="{Binding SendAnimation2}" Command="{Binding PhotoCommand}" CommandParameter="{Binding Text, ElementName=textBlock2}" Style="{StaticResource SendButton2}" BorderThickness="0" Content="Распечатать" Margin="10,0,-10,0"/>
-                        </Grid>
-                        <Button  IsEnabled="{Binding SendAnimation2}" Command="{Binding PlusCount}" CommandParameter="{Binding Text, ElementName=textBlock2}" Style="{StaticResource SendButton2}" BorderThickness="0" Content="+" Margin="418,0,171,0"/>
-                        <Button  IsEnabled="{Binding SendAnimation2}" Command="{Binding MinusCount}" CommandParameter="{Binding Text, ElementName=textBlock2}" Style="{StaticResource SendButton2}" BorderThickness="0" Content="-" Margin="269,0,320,0"/>
+                        </TextBox>
+                        <Rectangle RadiusX="5" RadiusY="5" Width="{Binding Width,ElementName=textBlock}" Height="{Binding Height,ElementName=textBlock}" Stroke="#f39100" StrokeThickness="3" VerticalAlignment="Top"/>
                     </Grid>
-                    <TextBlock IsEnabled="{Binding ColorStatusText}"  Text="{Binding SendStatus}" Padding="20,5,0,5" FontSize="17" TextWrapping="Wrap" TextAlignment="Right" Margin="36,135,0,388" Grid.Column="1">
-                        <TextBlock.Style>
-                            <Style TargetType="{x:Type TextBlock}">
-                                <Setter Property="Padding" Value="1"/>
-                                <Style.Triggers>
-                                    <Trigger Property="IsEnabled" Value="True">
-                                        <Setter Property="Foreground" Value="Green"/>
-                                    </Trigger>
 
-                                    <Trigger Property="IsEnabled" Value="False">
-                                        <Setter Property="Foreground" Value="Red"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
-                    <TextBlock Grid.Column="0" Padding="0,5,0,5" FontSize="17" VerticalAlignment="Bottom" Margin="10,0,6,393"><Run Text="Отправьте файл на почту:"/></TextBlock>
+                    <Grid Grid.Column="0" HorizontalAlignment="Right" Margin="0,0,220,0" Width="95"/>
+                    <Grid Grid.Column="2">
+                        <Button  IsEnabled="{Binding SendAnimation2}" Command="{Binding Print}" CommandParameter="{Binding ElementName=textBlock2, Path=Text}" Style="{StaticResource SendButton2}" BorderThickness="0" Content="Распечатать" Margin="10,0,-10,0"/>
+                    </Grid>
+                    <Button  IsEnabled="{Binding SendAnimation2}" Command="{Binding PlusCount}" CommandParameter="{Binding Text, ElementName=textBlock2}" Style="{StaticResource SendButton2}" BorderThickness="0" Content="+" Margin="418,0,171,0"/>
+                    <Button  IsEnabled="{Binding SendAnimation2}" Command="{Binding MinusCount}" CommandParameter="{Binding Text, ElementName=textBlock2}" Style="{StaticResource SendButton2}" BorderThickness="0" Content="-" Margin="269,0,320,0"/>
+                </Grid>
+
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="109*"/>
+                        <ColumnDefinition Width="298*"/>
+                    </Grid.ColumnDefinitions>
+                    <controls1:CoolKeyBoard Margin="0,10,0,82" Focusable="False" IsOpen="True" x:Name="CoolKeyBoard"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.ColumnSpan="2"/>
                 </Grid>
             </StackPanel>
 
