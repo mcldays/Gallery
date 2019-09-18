@@ -3,6 +3,9 @@ using Gallery.Utilits;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
@@ -17,6 +20,8 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Navigation;
 using Gallery.View;
+using Image = System.Windows.Controls.Image;
+using Point = System.Windows.Point;
 using Rect = System.Windows.Rect;
 
 
@@ -528,14 +533,14 @@ namespace Gallery.ViewModel
                                    SendAnimation2 = false;
                                    await Task.Delay(100);
 
-                                   for (int i = 0; i < CountCopy; i++)
-                                   {
+                                   //for (int i = 0; i < CountCopy; i++)
+                                   //{
                                        PrintDocument pd = new PrintDocument();
                                        pd.OriginAtMargins = false;
+                                       pd.PrinterSettings.Copies = (short)countCopy;
                                        pd.PrintPage += PrintPage;
-
                                        pd.Print();
-                                   }
+                                   //}
 
 
                                    ColorStatusText = true;
@@ -557,16 +562,22 @@ namespace Gallery.ViewModel
         }
 
 
+
+
         private void PrintPage(object o, PrintPageEventArgs e)
         {
             string Url = Explorer.ImgUrl;
             System.Drawing.Image img = System.Drawing.Image.FromFile(Url);
+            if (img.Width > img.Height)
+               img.RotateFlip(RotateFlipType.Rotate90FlipNone);
             var a = e.MarginBounds;
             Margins b = e.PageSettings.Margins;
             System.Drawing.Rectangle c = new System.Drawing.Rectangle(0, 0, a.Width + b.Left + b.Right, a.Height + b.Top + b.Bottom);
             e.Graphics.DrawImage(img, c);
+
         }
 
+        
 
         private async void ResetSendStatus()
         {

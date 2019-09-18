@@ -37,11 +37,12 @@ namespace Gallery.Utilits
         public async Task<string> SendEmail(string Email, string Path)
         {
             if (MailModel == null) return defaultError; 
-            return await SendMail(MailModel.SMTPServer, MailModel.Port, MailModel.Mail, MailModel.Password, Email, MailModel.Title, "", Path);
+            return await SendMail(MailModel.SMTPServer, MailModel.Port, MailModel.Mail, MailModel.Password, Email, MailModel.Title, "Добрый вечер!  Ваше фото с мероприятия во вложении.", Path);
         }
 
         public async static Task<string> SendMail(string smtpServer, int Port, string from, string password, string mailto, string caption, string message, string attachFile = null)
         {
+            
             try
             {
                 MailMessage mail = new MailMessage();
@@ -66,7 +67,7 @@ namespace Gallery.Utilits
                 return null;
             }
             catch (Exception e)
-            {
+                {
                 if(e.Message.Contains("limit"))
                 {
                     return "Ошибка! Достигнут лимит сообщений для данного адреса. Укажите другой email, либо попробуйте позже.";
