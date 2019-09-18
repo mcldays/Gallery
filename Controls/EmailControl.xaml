@@ -68,7 +68,7 @@
                         <Rectangle RadiusX="5" RadiusY="5" Width="{Binding Width,ElementName=textBlock}" Height="{Binding Height,ElementName=textBlock}" Stroke="#b33227" StrokeThickness="3" VerticalAlignment="Top" Margin="0,0,-12,0" Grid.ColumnSpan="1"/>
                     </Grid>
 
-                    <TextBlock Grid.Column="0" Grid.Row="1" IsEnabled="{Binding ColorStatusText}"  Text="{Binding SendStatus3}" Padding="20,5,0,5" FontSize="17" TextWrapping="Wrap" TextAlignment="Right" Grid.ColumnSpan="3">
+                    <TextBlock Grid.Column="0" Grid.Row="1" IsEnabled="{Binding ColorStatusText3}"  Text="{Binding SendStatus3}" Padding="20,5,0,5" FontSize="17" TextWrapping="Wrap" TextAlignment="Right" Grid.ColumnSpan="3">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
                                 <Setter Property="Padding" Value="1"/>
@@ -90,7 +90,7 @@
                         <Rectangle RadiusX="5" RadiusY="5" Width="{Binding Width,ElementName=textBlock3}" Height="{Binding Height,ElementName=textBlock3}" Stroke="#b33227" StrokeThickness="3" VerticalAlignment="Top" Margin="0,0,-12,0" Grid.ColumnSpan="1"/>
                     </Grid>
 
-                    <TextBlock Grid.Column="0" Grid.Row="3" IsEnabled="{Binding ColorStatusText}"  Text="{Binding SendStatus4}" Padding="20,5,0,5" FontSize="17" TextWrapping="Wrap" TextAlignment="Right" Grid.ColumnSpan="3">
+                    <TextBlock Grid.Column="0" Grid.Row="3" IsEnabled="{Binding ColorStatusText4}"  Text="{Binding SendStatus4}" Padding="20,5,0,5" FontSize="17" TextWrapping="Wrap" TextAlignment="Right" Grid.ColumnSpan="3">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">
                                 <Setter Property="Padding" Value="1"/>

@@ -31,9 +31,12 @@ namespace Gallery.ViewModel
         private int countCopy = 1;
 
         private string sendStatus = string.Empty;
+        private string sendStatus3 = string.Empty;
+        private string sendStatus4 = string.Empty;
         private string sendStatus2 = string.Empty;
         private bool sendAnimation = true;
         private bool sendAnimation2 = true;
+        
 
 
         private UserControl userControl;
@@ -115,6 +118,8 @@ namespace Gallery.ViewModel
 
         public bool colorStatusText;
         public bool colorStatusText2;
+        public bool colorStatusText3;
+        public bool colorStatusText4;
 
         public bool SendAnimation
         {
@@ -164,6 +169,45 @@ namespace Gallery.ViewModel
             }
         }
 
+
+        public string SendStatus3
+        {
+            get
+            {
+                return sendStatus3;
+            }
+            set
+            {
+                if (sendStatus3 != value)
+                {
+                    sendStatus3 = value;
+                    OnPropertyChanged("SendStatus3");
+                }
+            }
+        }
+
+
+        public string SendStatus4
+        {
+            get
+            {
+                return sendStatus4;
+            }
+            set
+            {
+                if (sendStatus4 != value)
+                {
+                    sendStatus4 = value;
+                    OnPropertyChanged("SendStatus4");
+                }
+            }
+        }
+
+
+
+
+
+
         public string SendStatus2
         {
             get
@@ -212,6 +256,42 @@ namespace Gallery.ViewModel
             }
         }
 
+        public bool ColorStatusText3
+        {
+            get
+            {
+                return colorStatusText3;
+            }
+            set
+            {
+                if (colorStatusText3 != value)
+                {
+                    colorStatusText3 = value;
+                    OnPropertyChanged("ColorStatusText3");
+                }
+            }
+        }
+
+        public bool ColorStatusText4
+        {
+            get
+            {
+                return colorStatusText4;
+            }
+            set
+            {
+                if (colorStatusText4 != value)
+                {
+                    colorStatusText4 = value;
+                    OnPropertyChanged("ColorStatusText4");
+                }
+            }
+        }
+
+
+
+
+
         public string FormEmailTitle
         {
             get
@@ -247,111 +327,120 @@ namespace Gallery.ViewModel
                         {
                             string Url = Explorer.ImgUrl;
                             string Email = (string)obj;
-                           
-                            
 
-                            SendAnimation = false;
-                            await Task.Delay(100);
                             EmailManager emai = new EmailManager();
 
-                            if (!emai.IsValidEmail(Email))
+                            if (Email != "")
                             {
-                                ColorStatusText = false;
-                                SendStatus = "Введен некорректный Email";
-                                ResetSendStatus();
-                                SendAnimation = true;
+                                SendAnimation = false;
+                                await Task.Delay(100);
                                 
-                            }
-                            else
-                            {
-                                string ReturnedMsg = await emai.SendEmail(Email, Url);
-                                SendAnimation = true;
 
-                                ColorStatusText = string.IsNullOrEmpty(ReturnedMsg);
-                                if (ColorStatusText)
+                                if (!emai.IsValidEmail(Email))
                                 {
-                                    // Успешно отправил
-                                    SendStatus = "Сообщение успешно отправлено!";
+                                    ColorStatusText = false;
+                                    SendStatus = "Введен некорректный Email";
                                     ResetSendStatus();
-                                    Explorer.AddMailGood(Email);
-                                    EmailText = string.Empty;
+                                    SendAnimation = true;
+
                                 }
                                 else
                                 {
-                                    // Ошибка отправки
-                                    SendStatus = ReturnedMsg; //"Ошибка при отправке сообщения!"
-                                    ResetSendStatus();
-                                    Explorer.AddMailBad();
-                                }
+                                    string ReturnedMsg = await emai.SendEmail(Email, Url);
+                                    SendAnimation = true;
+
+                                    ColorStatusText = string.IsNullOrEmpty(ReturnedMsg);
+                                    if (ColorStatusText)
+                                    {
+                                        // Успешно отправил
+                                        SendStatus = "Сообщение успешно отправлено!";
+                                        ResetSendStatus();
+                                        Explorer.AddMailGood(Email);
+                                        EmailText = string.Empty;
+                                    }
+                                    else
+                                    {
+                                        // Ошибка отправки
+                                        SendStatus = ReturnedMsg; //"Ошибка при отправке сообщения!"
+                                        ResetSendStatus();
+                                        Explorer.AddMailBad();
+                                    }
 
 
+                                } // конец 1-го блока
                             }
 
-                            if (!emai.IsValidEmail(EmailText1))
+                            if (EmailText1 != "")
                             {
-                                ColorStatusText = false;
-                                SendStatus = "Введен некорректный Email";
-                                ResetSendStatus();
-                                SendAnimation = true;
-
-                            }
-                            else
-                            {
-                                string ReturnedMsg = await emai.SendEmail(EmailText1, Url);
-                                SendAnimation = true;
-
-                                ColorStatusText = string.IsNullOrEmpty(ReturnedMsg);
-                                if (ColorStatusText)
+                                if (!emai.IsValidEmail(EmailText1))
                                 {
-                                    // Успешно отправил
-                                    SendStatus = "Сообщение успешно отправлено!";
+                                    ColorStatusText3 = false;
+                                    SendStatus3 = "Введен некорректный Email";
                                     ResetSendStatus();
-                                    Explorer.AddMailGood(EmailText1);
-                                    EmailText = string.Empty;
+                                    SendAnimation = true;
+
                                 }
                                 else
                                 {
-                                    // Ошибка отправки
-                                    SendStatus = ReturnedMsg; //"Ошибка при отправке сообщения!"
-                                    ResetSendStatus();
-                                    Explorer.AddMailBad();
+                                    string ReturnedMsg = await emai.SendEmail(EmailText1, Url);
+                                    SendAnimation = true;
+
+                                    ColorStatusText3 = string.IsNullOrEmpty(ReturnedMsg);
+                                    if (ColorStatusText3)
+                                    {
+                                        // Успешно отправил
+                                        SendStatus3 = "Сообщение успешно отправлено!";
+                                        ResetSendStatus();
+                                        Explorer.AddMailGood(EmailText1);
+                                        EmailText = string.Empty;
+                                    }
+                                    else
+                                    {
+                                        // Ошибка отправки
+                                        SendStatus3 = ReturnedMsg; //"Ошибка при отправке сообщения!"
+                                        ResetSendStatus();
+                                        Explorer.AddMailBad();
+                                    }
+
+
                                 }
-
-
                             }
 
-                            if (!emai.IsValidEmail(EmailText2))
+                            if (EmailText2 != "")
                             {
-                                ColorStatusText = false;
-                                SendStatus = "Введен некорректный Email";
-                                ResetSendStatus();
-                                SendAnimation = true;
-
-                            }
-
-                            else
-                            {
-                                string ReturnedMsg = await emai.SendEmail(EmailText2, Url);
-                                SendAnimation = true;
-
-                                ColorStatusText = string.IsNullOrEmpty(ReturnedMsg);
-                                if (ColorStatusText)
+                                if(!emai.IsValidEmail(EmailText2))
                                 {
-                                    // Успешно отправил
-                                    SendStatus = "Сообщение успешно отправлено!";
+                                    ColorStatusText4 = false;
+                                    SendStatus4 = "Введен некорректный Email";
                                     ResetSendStatus();
-                                    Explorer.AddMailGood(EmailText2);
-                                    EmailText = string.Empty;
+                                    SendAnimation = true;
+
                                 }
+
                                 else
                                 {
-                                    // Ошибка отправки
-                                    SendStatus = ReturnedMsg; //"Ошибка при отправке сообщения!"
-                                    ResetSendStatus();
-                                    Explorer.AddMailBad();
+                                    string ReturnedMsg = await emai.SendEmail(EmailText2, Url);
+                                    SendAnimation = true;
+
+                                    ColorStatusText4 = string.IsNullOrEmpty(ReturnedMsg);
+                                    if (ColorStatusText4)
+                                    {
+                                        // Успешно отправил
+                                        SendStatus4 = "Сообщение успешно отправлено!";
+                                        ResetSendStatus();
+                                        Explorer.AddMailGood(EmailText2);
+                                        EmailText = string.Empty;
+                                    }
+                                    else
+                                    {
+                                        // Ошибка отправки
+                                        SendStatus4 = ReturnedMsg; //"Ошибка при отправке сообщения!"
+                                        ResetSendStatus();
+                                        Explorer.AddMailBad();
+                                    }
+
+
                                 }
-
-
                             }
 
                             SendAnimation = true;
@@ -484,6 +573,9 @@ namespace Gallery.ViewModel
             await Task.Delay(5000);
             SendStatus = string.Empty;
             SendStatus2 = string.Empty;
+            SendStatus3 = string.Empty;
+            SendStatus4 = string.Empty;
+
         }
 
         private void UserControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
