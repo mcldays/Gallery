@@ -145,6 +145,7 @@
     <Compile Include="Utilits\ObjectSerializator.cs" />
     <Compile Include="Utilits\ProcessLogin.cs" />
     <Compile Include="Utilits\UsbManager.cs" />
+    <Compile Include="Utilits\UserInactivity.cs" />
     <Compile Include="ViewModel\EmailControl.cs" />
     <Compile Include="ViewModel\ImageWindow.cs" />
     <Compile Include="ViewModel\SettingsWindow.cs" />
@@ -156,6 +157,9 @@
     </Compile>
     <Compile Include="View\PreViewImg.xaml.cs">
       <DependentUpon>PreViewImg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PrintPage.xaml.cs">
+      <DependentUpon>PrintPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
@@ -197,6 +201,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\PreViewImg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PrintPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -7,10 +7,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Gallery.Utilits;
-using Microsoft.Extensions.DependencyInjection;
-using VkNet;
-using VkNet.AudioBypassService.Extensions;
-using VkNet.Model;
 using Application = System.Windows.Application;
 
 namespace Gallery
@@ -19,8 +15,8 @@ namespace Gallery
     /// Логика взаимодействия для App.xaml
     /// </summary>
     ///
-    
 
+   
 
     public partial class App : Application
     {

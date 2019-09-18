@@ -1,13 +1,13 @@
 ﻿<UserControl x:Class="Gallery.Controls.EmailControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Gallery.Controls"
              xmlns:viewM="clr-namespace:Gallery.ViewModel"
              xmlns:controls1="clr-namespace:Gallery.Controls"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              Name="ControlUser"
              d:DesignHeight="599" d:DesignWidth="894">
     <UserControl.DataContext>
@@ -181,7 +181,7 @@
                             </TextBox.Style>-->
 
                         </TextBox>
-                        <Rectangle RadiusX="5" RadiusY="5" Width="{Binding Width,ElementName=textBlock}" Height="{Binding Height,ElementName=textBlock}" Stroke="#f39100" StrokeThickness="3" VerticalAlignment="Top"/>
+                        <Rectangle RadiusX="5" RadiusY="5" Width="{Binding Width,ElementName=textBlock}" Height="{Binding Height,ElementName=textBlock}" Stroke="#b33227" StrokeThickness="3" VerticalAlignment="Top"/>
                     </Grid>
 
                     <Grid Grid.Column="0" HorizontalAlignment="Right" Margin="0,0,220,0" Width="95"/>

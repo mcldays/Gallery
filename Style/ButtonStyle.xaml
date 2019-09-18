@@ -14,8 +14,8 @@
                         <Border x:Name="border" CornerRadius="8">
                             <Border.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="#f38907" Offset="1"/>
-                                    <GradientStop Color="#fbec17"/>
+                                    <GradientStop Color="#a83827" Offset="1"/>
+                                    <GradientStop Color="#b33227"/>
                                 </LinearGradientBrush>
                             </Border.Background>
                             <!--<ContentPresenter x:Name="asd" HorizontalAlignment="Center"
@@ -59,8 +59,8 @@
                         <Border x:Name="border" CornerRadius="8">
                             <Border.Background>
                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="#f38907" Offset="1"/>
-                                    <GradientStop Color="#fbec17"/>
+                                    <GradientStop Color="#b33227" Offset="1"/>
+                                    <GradientStop Color="#b33227"/>
                                 </LinearGradientBrush>
                             </Border.Background>
                             <!--<ContentPresenter x:Name="asd" HorizontalAlignment="Center"

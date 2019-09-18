@@ -47,7 +47,7 @@
                                 </Border.Effect>
                                 <ContentPresenter HorizontalAlignment="Center"
                                           VerticalAlignment="Center"
-                                          TextElement.Foreground="#f39407"
+                                          TextElement.Foreground="#b33227"
                                           TextElement.FontSize="30"
                                           TextElement.FontFamily="Arial"
                                           TextElement.FontWeight="Regular">
