@@ -336,28 +336,7 @@ namespace Gallery.ViewModel
             }
         }
 
-        //EmailManager emai = new EmailManager();
-
-
-                               //ColorStatusText = string.IsNullOrEmpty(ReturnedMsg);
-                               //if (ColorStatusText)
-                               //{
-                               //    // Успешно отправил
-                               //    SendStatus = "Сообщение успешно отправлено!";
-                               //    ResetSendStatus();
-                               //    Explorer.AddMailGood(Email);
-                               //}
-                               //else
-                               //{
-                               //    // Ошибка отправки
-                               //    SendStatus = ReturnedMsg; //"Ошибка при отправке сообщения!"
-                               //    ResetSendStatus();
-                               //    Explorer.AddMailBad();
-                               //}
-                           }
-                       }));
-            }
-        }
+      
 
         private void PrintPage(object o, PrintPageEventArgs e)
         {
