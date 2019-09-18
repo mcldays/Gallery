@@ -26,6 +26,8 @@ namespace Gallery.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private string emailText = string.Empty;
+        private string emailText1 = string.Empty;
+        private string emailText2 = string.Empty;
         private int countCopy = 1;
 
         private string sendStatus = string.Empty;
@@ -58,6 +60,38 @@ namespace Gallery.ViewModel
                 {
                     emailText = value;
                     OnPropertyChanged("EmailText");
+                }
+            }
+        }
+
+        public string EmailText1
+        {
+            get
+            {
+                return emailText1;
+            }
+            set
+            {
+                if (emailText1 != value)
+                {
+                    emailText1 = value;
+                    OnPropertyChanged("EmailText1");
+                }
+            }
+        }
+
+        public string EmailText2
+        {
+            get
+            {
+                return emailText2;
+            }
+            set
+            {
+                if (emailText2 != value)
+                {
+                    emailText2 = value;
+                    OnPropertyChanged("EmailText2");
                 }
             }
         }
@@ -213,6 +247,7 @@ namespace Gallery.ViewModel
                         {
                             string Url = Explorer.ImgUrl;
                             string Email = (string)obj;
+                           
                             
 
                             SendAnimation = false;
@@ -228,6 +263,10 @@ namespace Gallery.ViewModel
                                 return;
                             }
                             string ReturnedMsg = await emai.SendEmail(Email, Url);
+                            string ReturnedMsg1 = await emai.SendEmail(EmailText1, Url);
+                            string ReturnedMsg2 = await emai.SendEmail(EmailText2, Url);
+
+
                             SendAnimation = true;
 
                             ColorStatusText = string.IsNullOrEmpty(ReturnedMsg);
