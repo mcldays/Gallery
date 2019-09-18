@@ -260,31 +260,126 @@ namespace Gallery.ViewModel
                                 SendStatus = "Введен некорректный Email";
                                 ResetSendStatus();
                                 SendAnimation = true;
-                                return;
-                            }
-                            string ReturnedMsg = await emai.SendEmail(Email, Url);
-                            string ReturnedMsg1 = await emai.SendEmail(EmailText1, Url);
-                            string ReturnedMsg2 = await emai.SendEmail(EmailText2, Url);
-
-
-                            SendAnimation = true;
-
-                            ColorStatusText = string.IsNullOrEmpty(ReturnedMsg);
-                            if (ColorStatusText)
-                            {
-                                // Успешно отправил
-                                SendStatus = "Сообщение успешно отправлено!";
-                                ResetSendStatus();
-                                Explorer.AddMailGood(Email);
-                                EmailText = string.Empty;
+                                
                             }
                             else
                             {
-                                // Ошибка отправки
-                                SendStatus = ReturnedMsg; //"Ошибка при отправке сообщения!"
-                                ResetSendStatus();
-                                Explorer.AddMailBad();
+                                string ReturnedMsg = await emai.SendEmail(Email, Url);
+                                SendAnimation = true;
+
+                                ColorStatusText = string.IsNullOrEmpty(ReturnedMsg);
+                                if (ColorStatusText)
+                                {
+                                    // Успешно отправил
+                                    SendStatus = "Сообщение успешно отправлено!";
+                                    ResetSendStatus();
+                                    Explorer.AddMailGood(Email);
+                                    EmailText = string.Empty;
+                                }
+                                else
+                                {
+                                    // Ошибка отправки
+                                    SendStatus = ReturnedMsg; //"Ошибка при отправке сообщения!"
+                                    ResetSendStatus();
+                                    Explorer.AddMailBad();
+                                }
+
+
                             }
+
+                            if (!emai.IsValidEmail(EmailText1))
+                            {
+                                ColorStatusText = false;
+                                SendStatus = "Введен некорректный Email";
+                                ResetSendStatus();
+                                SendAnimation = true;
+
+                            }
+                            else
+                            {
+                                string ReturnedMsg = await emai.SendEmail(EmailText1, Url);
+                                SendAnimation = true;
+
+                                ColorStatusText = string.IsNullOrEmpty(ReturnedMsg);
+                                if (ColorStatusText)
+                                {
+                                    // Успешно отправил
+                                    SendStatus = "Сообщение успешно отправлено!";
+                                    ResetSendStatus();
+                                    Explorer.AddMailGood(EmailText1);
+                                    EmailText = string.Empty;
+                                }
+                                else
+                                {
+                                    // Ошибка отправки
+                                    SendStatus = ReturnedMsg; //"Ошибка при отправке сообщения!"
+                                    ResetSendStatus();
+                                    Explorer.AddMailBad();
+                                }
+
+
+                            }
+
+                            if (!emai.IsValidEmail(EmailText2))
+                            {
+                                ColorStatusText = false;
+                                SendStatus = "Введен некорректный Email";
+                                ResetSendStatus();
+                                SendAnimation = true;
+
+                            }
+
+                            else
+                            {
+                                string ReturnedMsg = await emai.SendEmail(EmailText2, Url);
+                                SendAnimation = true;
+
+                                ColorStatusText = string.IsNullOrEmpty(ReturnedMsg);
+                                if (ColorStatusText)
+                                {
+                                    // Успешно отправил
+                                    SendStatus = "Сообщение успешно отправлено!";
+                                    ResetSendStatus();
+                                    Explorer.AddMailGood(EmailText2);
+                                    EmailText = string.Empty;
+                                }
+                                else
+                                {
+                                    // Ошибка отправки
+                                    SendStatus = ReturnedMsg; //"Ошибка при отправке сообщения!"
+                                    ResetSendStatus();
+                                    Explorer.AddMailBad();
+                                }
+
+
+                            }
+
+                            SendAnimation = true;
+
+
+                            //string ReturnedMsg = await emai.SendEmail(Email, Url);
+                            //string ReturnedMsg1 = await emai.SendEmail(EmailText1, Url);
+                            //string ReturnedMsg2 = await emai.SendEmail(EmailText2, Url);
+
+
+
+
+                            //ColorStatusText = string.IsNullOrEmpty(ReturnedMsg);
+                            //if (ColorStatusText)
+                            //{
+                            //    // Успешно отправил
+                            //    SendStatus = "Сообщение успешно отправлено!";
+                            //    ResetSendStatus();
+                            //    Explorer.AddMailGood(Email);
+                            //    EmailText = string.Empty;
+                            //}
+                            //else
+                            //{
+                            //    // Ошибка отправки
+                            //    SendStatus = ReturnedMsg; //"Ошибка при отправке сообщения!"
+                            //    ResetSendStatus();
+                            //    Explorer.AddMailBad();
+                            //}
                         }
                     }));
             }

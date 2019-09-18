@@ -65,17 +65,17 @@
                     </Grid.RowDefinitions>
                     <Grid  Grid.Column="0" Background="White">
                         <TextBox Text="{Binding EmailText, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" Name="textBlock" Padding="14,5,5,5" FontSize="22" Height="40" Width="Auto" VerticalAlignment="Top" Loaded="textBlock_Loaded" IsVisibleChanged="textBlock_IsVisibleChanged" Grid.ColumnSpan="1"></TextBox>
-                        <Rectangle RadiusX="5" RadiusY="5" Width="{Binding Width,ElementName=textBlock}" Height="{Binding Height,ElementName=textBlock}" Stroke="#f39100" StrokeThickness="3" VerticalAlignment="Top" Margin="0,0,-12,0" Grid.ColumnSpan="1"/>
+                        <Rectangle RadiusX="5" RadiusY="5" Width="{Binding Width,ElementName=textBlock}" Height="{Binding Height,ElementName=textBlock}" Stroke="#b33227" StrokeThickness="3" VerticalAlignment="Top" Margin="0,0,-12,0" Grid.ColumnSpan="1"/>
                     </Grid>
 
                     <Grid  Grid.Column="0" Grid.Row="2" Background="White">
                         <TextBox Text="{Binding EmailText1, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" Name="textBlock3" Padding="14,5,5,5" FontSize="22" Height="40" Width="Auto" VerticalAlignment="Top" Loaded="textBlock_Loaded" IsVisibleChanged="textBlock_IsVisibleChanged" Grid.ColumnSpan="1"></TextBox>
-                        <Rectangle RadiusX="5" RadiusY="5" Width="{Binding Width,ElementName=textBlock3}" Height="{Binding Height,ElementName=textBlock3}" Stroke="#f39100" StrokeThickness="3" VerticalAlignment="Top" Margin="0,0,-12,0" Grid.ColumnSpan="1"/>
+                        <Rectangle RadiusX="5" RadiusY="5" Width="{Binding Width,ElementName=textBlock3}" Height="{Binding Height,ElementName=textBlock3}" Stroke="#b33227" StrokeThickness="3" VerticalAlignment="Top" Margin="0,0,-12,0" Grid.ColumnSpan="1"/>
                     </Grid>
 
                     <Grid  Grid.Column="0" Grid.Row="4" Background="White">
                         <TextBox Text="{Binding EmailText2, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" Name="textBlock4" Padding="14,5,5,5" FontSize="22" Height="40" Width="Auto" VerticalAlignment="Top" Loaded="textBlock_Loaded" IsVisibleChanged="textBlock_IsVisibleChanged" Grid.ColumnSpan="1"></TextBox>
-                        <Rectangle RadiusX="5" RadiusY="5" Width="{Binding Width,ElementName=textBlock4}" Height="{Binding Height,ElementName=textBlock4}" Stroke="#f39100" StrokeThickness="3" VerticalAlignment="Top" Margin="0,0,-12,0" Grid.ColumnSpan="1"/>
+                        <Rectangle RadiusX="5" RadiusY="5" Width="{Binding Width,ElementName=textBlock4}" Height="{Binding Height,ElementName=textBlock4}" Stroke="#b33227" StrokeThickness="3" VerticalAlignment="Top" Margin="0,0,-12,0" Grid.ColumnSpan="1"/>
                     </Grid>
 
                     <Grid Grid.Column="2" Grid.Row="2">
